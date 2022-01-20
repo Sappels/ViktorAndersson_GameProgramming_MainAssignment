@@ -24,7 +24,7 @@ ExportedObj/
 *.pdb
 *.opendb
 *.VC.db
-*\2D mobile Main Assignment\Assets\Firebase\Plugins\x86_64
+/2D mobile Main Assignment/Assets/Firebase/Plugins/x86_64/
 
 # Unity3D generated meta files
 *.pidb.meta

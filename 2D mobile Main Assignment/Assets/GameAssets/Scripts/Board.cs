@@ -21,7 +21,7 @@ public class Board : MonoBehaviour
     //public Slider player2HealthBar;
 
     [SerializeField] private GameObject magicOre;
-    private GameObject[,] boardArray;
+    public GameObject[,] boardArray;
 
     private int randomOre;
 

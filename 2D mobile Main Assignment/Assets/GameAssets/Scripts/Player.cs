@@ -20,8 +20,9 @@ public class Player : MonoBehaviour
     private void PlayerInput()
     {
         //Kolla att du klickar på ore-helvetet med (till next time)
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && currentOre != null)
         {
+            currentOre.transform.position = mousePos;
             //bingbangbom dra i ores då
         }
     }

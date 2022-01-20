@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MagicOre
   - PlayerHandler
+  - BoardHandler
   layers:
   - Default
   - TransparentFX

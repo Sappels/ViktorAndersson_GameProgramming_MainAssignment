@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 115275264}
   m_Layer: 0
   m_Name: PlayerHandler
-  m_TagString: Untagged
+  m_TagString: PlayerHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movesLeft: 0
+  currentOre: {fileID: 0}
 --- !u!4 &115275265
 Transform:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ GameObject:
   - component: {fileID: 786270580}
   m_Layer: 0
   m_Name: BoardManager
-  m_TagString: Untagged
+  m_TagString: BoardHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

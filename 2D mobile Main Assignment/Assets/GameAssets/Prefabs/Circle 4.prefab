@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4264615328614054874}
   - component: {fileID: 4264615328614054875}
   - component: {fileID: 5122532093055014227}
+  - component: {fileID: 8866841284214467174}
   m_Layer: 0
   m_Name: Circle 4
   m_TagString: MagicOre
@@ -93,9 +94,21 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.9
+--- !u!114 &8866841284214467174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264615328614054852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4010768e56c686844bd3eaa42ea46fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

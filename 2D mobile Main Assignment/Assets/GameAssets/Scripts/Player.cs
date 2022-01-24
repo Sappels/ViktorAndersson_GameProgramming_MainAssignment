@@ -23,8 +23,15 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0) && currentOre != null)
         {
             currentOre.transform.position = mousePos;
-            //bingbangbom dra i ores då
         }
+
+        if (Input.GetMouseButtonUp(0) && currentOre != null)
+        {
+            //currentOre.GetComponent<MagicOreScript>().boardPosition = currentOre.GetComponent<MagicOreScript>().swapPosition;
+            //currentOre.transform.position = currentOre.GetComponent<MagicOreScript>().boardPosition;
+            currentOre = null;
+        }
+
     }
 
     private void GetMousePos()

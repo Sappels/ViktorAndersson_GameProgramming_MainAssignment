@@ -22,6 +22,7 @@ public class Board : MonoBehaviour
 
     [SerializeField] private GameObject magicOre;
     public GameObject[,] boardArray;
+    public Vector2[,] orePositions;
 
     private int randomOre;
 
@@ -56,6 +57,7 @@ public class Board : MonoBehaviour
     private void CreateBoard()
     {
         boardArray = new GameObject[columnLength, rowHeight];
+        orePositions = new Vector2[columnLength, rowHeight];
 
         for (int i = 0; i < columnLength; i++)
         {
@@ -63,6 +65,10 @@ public class Board : MonoBehaviour
             {
                 MagicOreRandomizer();
                 boardArray[i, j] = (GameObject)Instantiate(magicOre, new Vector3(i, j, 0) / spacing, Quaternion.identity, transform);
+
+                orePositions[i, j] = (Vector2)boardArray[i, j].transform.position;
+                boardArray[i,j].GetComponent<MagicOreScript>().columnIndex = i;
+                boardArray[i,j].GetComponent<MagicOreScript>().rowIndex = j;
             }
         }
 

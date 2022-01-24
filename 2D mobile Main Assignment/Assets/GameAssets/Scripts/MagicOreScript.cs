@@ -10,37 +10,55 @@ public class MagicOreScript : MonoBehaviour
     private GameObject boardHandler;
     private Board board;
 
-    private int indexLength;
-    private int lengthPos, heightPos;
+    public Vector2 boardPosition;
+    public Vector2 swapPosition;
 
+    private bool swapIndex;
+    
+    public int columnIndex, rowIndex;
+    
     private void Start()
     {
         playerHandler = GameObject.FindGameObjectWithTag("PlayerHandler");
         boardHandler = GameObject.FindGameObjectWithTag("BoardHandler");
         player = playerHandler.GetComponent<Player>();
         board = boardHandler.GetComponent<Board>();
+
+        //boardPosition = transform.position;
+        //swapPosition = boardPosition;
     }
+
     private void Update()
     {
-        //index = System.Array.IndexOf(board.boardArray, gameObject);
-        //indexLength = board.boardArray[,gameObject];
+        if (swapIndex)
+        {
+
+        }
     }
-    
+
     private void OnMouseEnter()
     {
-        player.currentOre = gameObject;
-    }
-    
-    private void OnMouseExit()
-    {
-        player.currentOre = null;
+        if (player.currentOre == null)
+        {
+            player.currentOre = gameObject;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("MagicOre"))
         {
-            //swap slots
+            swapIndex = true;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+
+        if (other.CompareTag("MagicOre"))
+        {
+            swapIndex = true;
+        }
+    }
+
 }

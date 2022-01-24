@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4264615328614054875}
   - component: {fileID: -2463416551490835797}
   - component: {fileID: -3677433379406946462}
+  - component: {fileID: 6484449919216669505}
   m_Layer: 0
   m_Name: Circle 7
   m_TagString: MagicOre
@@ -112,3 +113,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4010768e56c686844bd3eaa42ea46fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardPosition: {x: 0, y: 0}
+  swapPosition: {x: 0, y: 0}
+  columnIndex: 0
+  rowIndex: 0
+--- !u!50 &6484449919216669505
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264615328614054852}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

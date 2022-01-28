@@ -10,19 +10,11 @@ public class Board : MonoBehaviour
     [SerializeField] int columnLength;
     [SerializeField] int rowHeight;
     [SerializeField] float spacing;
+    [SerializeField] GameObject magicOre;
     [SerializeField] GameObject[] magicOres;
     [SerializeField] List<GameObject> magicOresToSpawn = new List<GameObject>();
 
-    //Sliders I might need for both players health and mana
-    //public Slider player1SpellMeter;
-    //public Slider player2SpellMeter;
- 
-    //public Slider player1HealthBar;
-    //public Slider player2HealthBar;
-
-    [SerializeField] private GameObject magicOre;
     public GameObject[,] boardArray;
-    public Vector2[,] orePositions;
 
     private int randomOre;
 
@@ -34,77 +26,128 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
+        FillOrePool();
         CreateBoard();
     }
 
     void Update()
     {
-        if (playerMakesMove)
-        {
-            CombinationChecker();
-            if (match3)
-            {
-                BreakOre();
-            }
-        }
+        UpdateBoard();
 
-        if (outOfMoves)
+        foreach (GameObject item in magicOresToSpawn)
         {
-            EndTurn();
+            item.SetActive(false);
+        }
+    }
+
+    private void UpdateBoard()
+    {
+        for (int i = 0; i < columnLength; i++)
+        {
+            for (int j = 0; j < rowHeight; j++)
+            {
+                    boardArray[i, j].GetComponent<MagicOreScript>().boardPosition = new Vector2(i, j) * spacing;
+
+                    boardArray[i, j].GetComponent<MagicOreScript>().columnIndex = i;
+                    boardArray[i, j].GetComponent<MagicOreScript>().rowIndex = j;
+            }
         }
     }
 
     private void CreateBoard()
     {
         boardArray = new GameObject[columnLength, rowHeight];
-        orePositions = new Vector2[columnLength, rowHeight];
 
         for (int i = 0; i < columnLength; i++)
         {
             for (int j = 0; j < rowHeight; j++)
             {
-                MagicOreRandomizer();
-                boardArray[i, j] = (GameObject)Instantiate(magicOre, new Vector3(i, j, 0) / spacing, Quaternion.identity, transform);
 
-                orePositions[i, j] = (Vector2)boardArray[i, j].transform.position;
+                int _randomOre = Random.Range(0,magicOresToSpawn.Count);
+
+                boardArray[i, j] = magicOresToSpawn[_randomOre];
+                boardArray[i, j].SetActive(true);
+                boardArray[i, j].transform.position = new Vector3(i, j, 0) * spacing;
+                boardArray[i, j].transform.rotation = Quaternion.identity;
+                boardArray[i, j].transform.parent = transform;
+
                 boardArray[i,j].GetComponent<MagicOreScript>().columnIndex = i;
                 boardArray[i,j].GetComponent<MagicOreScript>().rowIndex = j;
+
+                magicOresToSpawn.RemoveAt(_randomOre);
             }
         }
+    }
 
-        transform.position = new Vector3((-(float)(columnLength - 1) / spacing) / 2, -((float)(rowHeight - 1) / spacing) / 2 - 3.5f, 0);
+    private void FillOrePool()
+    {
+        foreach (GameObject item in magicOres)
+        {
+            for (int i = 0; i < 19; i++)
+            {
+                magicOresToSpawn.Add(Instantiate(item));
+                //item.SetActive(false);
+            }
+        }
     }
 
     private void CombinationChecker()
     {
-        if (combined)
+
+        //Save arrayposition of aligned ores
+        //Call function for breaking ores
+        throw new NotImplementedException();
+    }
+
+    public void BreakOre(GameObject ore)
+    {
+        int _i = ore.GetComponent<MagicOreScript>().columnIndex;
+        int _j = ore.GetComponent<MagicOreScript>().rowIndex;
+
+        int _randomOre = Random.Range(0, magicOresToSpawn.Count);
+
+        ore.SetActive(false);
+        magicOresToSpawn.Add(ore);
+        //boardArray[_i, _j] = null;
+
+        for (int j = _j - 1; j < rowHeight; j++)
         {
-            //Save arrayposition of aligned ores
-            //Call function for breaking ores
+            boardArray[_i, j] = boardArray[_i, j--];
         }
+
+        ore = magicOresToSpawn[_randomOre];
+
+        boardArray[_i, _j] = ore;
+
+        //OreDropper(ore);
         throw new NotImplementedException();
     }
 
-    private void BreakOre()
+    private void OreDropper(GameObject ore)
     {
-        //Take mana value, add to manapot
-        //Add +1 to ores broken
-        //foreach broken ore, MagicOreRandomizer();
-        OreDropper();
-        throw new NotImplementedException();
-    }
 
-    private void OreDropper()
-    {
-        //Hämta rowHeight på förstörda ores från CombinationChecker()
-        //Gå -- till du når toppen, spara alla obj, ta deras position och ++
-        //Kolla om det finns tomma slots på toppraden, kör NewOreSpawner();
+
+
+        //for (int i = 0; i < columnLength; i++)
+        //{
+        //    int _randomOre = Random.Range(0, magicOresToSpawn.Count);
+        //
+        //    if (boardArray[i, 7] = null)
+        //    {
+        //        boardArray[i, 7] = magicOresToSpawn[_randomOre];
+        //        boardArray[i, 7].SetActive(true);
+        //        boardArray[i, 7].transform.parent = transform;
+        //
+        //        magicOresToSpawn.Remove(boardArray[i, 7]);
+        //    }
+        //}
         throw new NotImplementedException();
     }
 
     private void MagicOreRandomizer()
     {
-        randomOre = Random.Range(0, 6);
+        randomOre = Random.Range(0, 7);
         magicOre = magicOres[randomOre];
         //Lägg till random ore i MagicOresToSpawn;
     }

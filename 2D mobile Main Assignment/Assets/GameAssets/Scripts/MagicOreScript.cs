@@ -10,12 +10,13 @@ public class MagicOreScript : MonoBehaviour
     private GameObject boardHandler;
     private Board board;
 
-    public Vector2 boardPosition;
-    public Vector2 swapPosition;
-
-    private bool swapIndex;
+    private int mana = 100;
+    
+    public bool pickedUp;
     
     public int columnIndex, rowIndex;
+    public Vector2 boardPosition;
+
     
     private void Start()
     {
@@ -23,42 +24,20 @@ public class MagicOreScript : MonoBehaviour
         boardHandler = GameObject.FindGameObjectWithTag("BoardHandler");
         player = playerHandler.GetComponent<Player>();
         board = boardHandler.GetComponent<Board>();
-
-        //boardPosition = transform.position;
-        //swapPosition = boardPosition;
+        boardPosition = transform.localPosition;
     }
 
     private void Update()
     {
-        if (swapIndex)
+        if (!pickedUp)
         {
-
+            transform.localPosition = boardPosition;
         }
     }
 
-    private void OnMouseEnter()
+    public int GetMana()
     {
-        if (player.currentOre == null)
-        {
-            player.currentOre = gameObject;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("MagicOre"))
-        {
-            swapIndex = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-
-        if (other.CompareTag("MagicOre"))
-        {
-            swapIndex = true;
-        }
+        return mana;
     }
 
 }

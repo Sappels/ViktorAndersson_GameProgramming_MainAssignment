@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "0ee5bd20",
     "m_SelectedPackage": {
         "deviceId": "0ee5bd20",
-        "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 9262,
+        "name": "com.google.firebase.mobigamebig",
+        "processId": 9402,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,48 @@
             "deviceId": "0ee5bd20",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 9262,
+            "exited": true
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 9401,
+            "exited": true
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 9405,
+            "exited": true
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 10804,
+            "exited": true
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "net.oneplus.launcher",
+            "processId": 29358,
+            "exited": false
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 10803,
+            "exited": true
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 10806,
+            "exited": false
+        },
+        {
+            "deviceId": "0ee5bd20",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 9402,
             "exited": false
         }
     ],

@@ -35,7 +35,7 @@ public class Board : MonoBehaviour
 
     void Update()
     {
-        UpdateBoard();
+        //UpdateBoard();
     }
 
     private void UpdateBoard()
@@ -44,10 +44,12 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < rowHeight; j++)
             {
-                boardArray[i, j].GetComponent<MagicOreScript>().boardPosition = new Vector2(i, j) * spacing;
-                
-                boardArray[i, j].GetComponent<MagicOreScript>().columnIndex = i;
-                boardArray[i, j].GetComponent<MagicOreScript>().rowIndex = j;
+
+
+                //boardArray[i, j].GetComponent<MagicOreScript>().boardPosition = new Vector2(i, j) * spacing;
+                //
+                //boardArray[i, j].GetComponent<MagicOreScript>().columnIndex = i;
+                //boardArray[i, j].GetComponent<MagicOreScript>().rowIndex = j;
             }
         }
     }
@@ -62,24 +64,25 @@ public class Board : MonoBehaviour
             {
                 int _randomOre = Random.Range(0,magicOresToSpawn.Count);
 
-                //GameObject ore = magicOresToSpawn[_randomOre];
-                //
-                //oresOnBoard.Add(ore);
-                //ore.transform.parent = transform;
-                //ore.transform.position = new Vector3(i, j, 0) * spacing;
-                //ore.transform.rotation = Quaternion.identity;
-                //magicOresToSpawn.RemoveAt(_randomOre);
-                //ore.SetActive(true);
-                boardArray[i, j] = magicOresToSpawn[_randomOre];
-                boardArray[i, j].SetActive(true);
-                boardArray[i, j].transform.position = new Vector3(i, j, 0) * spacing;
-                boardArray[i, j].transform.rotation = Quaternion.identity;
-                boardArray[i, j].transform.parent = transform;
-                magicOresToSpawn.RemoveAt(_randomOre);
-
+                GameObject ore = magicOresToSpawn[_randomOre];
                 
-                boardArray[i,j].GetComponent<MagicOreScript>().columnIndex = i;
-                boardArray[i,j].GetComponent<MagicOreScript>().rowIndex = j;
+                oresOnBoard.Add(ore);
+                ore.transform.parent = transform;
+                ore.transform.localPosition = new Vector3(i, j, 0) * spacing;
+                ore.transform.rotation = Quaternion.identity;
+                magicOresToSpawn.RemoveAt(_randomOre);
+                ore.SetActive(true);
+
+                //boardArray[i, j] = magicOresToSpawn[_randomOre];
+                //boardArray[i, j].SetActive(true);
+                //boardArray[i, j].transform.position = new Vector3(i, j, 0) * spacing;
+                //boardArray[i, j].transform.rotation = Quaternion.identity;
+                //boardArray[i, j].transform.parent = transform;
+                //magicOresToSpawn.RemoveAt(_randomOre);
+                //
+                //
+                //boardArray[i,j].GetComponent<MagicOreScript>().columnIndex = i;
+                //boardArray[i,j].GetComponent<MagicOreScript>().rowIndex = j;
                 HideOrePoolAtStart();
             }
         }

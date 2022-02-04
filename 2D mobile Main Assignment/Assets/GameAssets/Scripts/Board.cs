@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -14,6 +15,7 @@ public class Board : MonoBehaviour
     [SerializeField] GameObject[] magicOres;
     [SerializeField] List<GameObject> magicOresToSpawn = new List<GameObject>();
 
+    List<GameObject> oresOnBoard = new List<GameObject>();
     public GameObject[,] boardArray;
 
     private int randomOre;
@@ -34,23 +36,18 @@ public class Board : MonoBehaviour
     void Update()
     {
         UpdateBoard();
-
-        foreach (GameObject item in magicOresToSpawn)
-        {
-            item.SetActive(false);
-        }
     }
 
     private void UpdateBoard()
     {
-        for (int i = 0; i < columnLength; i++)
+        for (int i = 0; i < columnLength; i++) 
         {
             for (int j = 0; j < rowHeight; j++)
             {
-                    boardArray[i, j].GetComponent<MagicOreScript>().boardPosition = new Vector2(i, j) * spacing;
-
-                    boardArray[i, j].GetComponent<MagicOreScript>().columnIndex = i;
-                    boardArray[i, j].GetComponent<MagicOreScript>().rowIndex = j;
+                boardArray[i, j].GetComponent<MagicOreScript>().boardPosition = new Vector2(i, j) * spacing;
+                
+                boardArray[i, j].GetComponent<MagicOreScript>().columnIndex = i;
+                boardArray[i, j].GetComponent<MagicOreScript>().rowIndex = j;
             }
         }
     }
@@ -63,21 +60,43 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < rowHeight; j++)
             {
-
                 int _randomOre = Random.Range(0,magicOresToSpawn.Count);
 
+                //GameObject ore = magicOresToSpawn[_randomOre];
+                //
+                //oresOnBoard.Add(ore);
+                //ore.transform.parent = transform;
+                //ore.transform.position = new Vector3(i, j, 0) * spacing;
+                //ore.transform.rotation = Quaternion.identity;
+                //magicOresToSpawn.RemoveAt(_randomOre);
+                //ore.SetActive(true);
                 boardArray[i, j] = magicOresToSpawn[_randomOre];
                 boardArray[i, j].SetActive(true);
                 boardArray[i, j].transform.position = new Vector3(i, j, 0) * spacing;
                 boardArray[i, j].transform.rotation = Quaternion.identity;
                 boardArray[i, j].transform.parent = transform;
+                magicOresToSpawn.RemoveAt(_randomOre);
 
+                
                 boardArray[i,j].GetComponent<MagicOreScript>().columnIndex = i;
                 boardArray[i,j].GetComponent<MagicOreScript>().rowIndex = j;
-
-                magicOresToSpawn.RemoveAt(_randomOre);
+                HideOrePoolAtStart();
             }
         }
+    }
+
+    private void HideOrePoolAtStart()
+    {
+        foreach (GameObject item in magicOresToSpawn)
+        {
+            item.SetActive(false);
+        }
+    }
+
+    private void DropIfBelowEmpty()
+    {
+        //Make pieces drop down if the slot beneath them is empty
+        //Needs 
     }
 
     private void FillOrePool()
@@ -87,88 +106,38 @@ public class Board : MonoBehaviour
             for (int i = 0; i < 19; i++)
             {
                 magicOresToSpawn.Add(Instantiate(item));
-                //item.SetActive(false);
             }
         }
     }
 
-    private void CombinationChecker()
-    {
-
-        //Save arrayposition of aligned ores
-        //Call function for breaking ores
-        throw new NotImplementedException();
-    }
-
     public void BreakOre(GameObject ore)
     {
-        int _i = ore.GetComponent<MagicOreScript>().columnIndex;
-        int _j = ore.GetComponent<MagicOreScript>().rowIndex;
+        //broken ass function
+        MagicOreScript _currentOreScript = ore.GetComponent<MagicOreScript>();
+
+        int currentColumnIndex = _currentOreScript.columnIndex;
+        int currentRowIndex = _currentOreScript.rowIndex;
 
         int _randomOre = Random.Range(0, magicOresToSpawn.Count);
 
-        ore.SetActive(false);
+        boardArray[currentColumnIndex, currentRowIndex] = null;
         magicOresToSpawn.Add(ore);
-        //boardArray[_i, _j] = null;
-
-        for (int j = _j - 1; j < rowHeight; j++)
-        {
-            boardArray[_i, j] = boardArray[_i, j--];
-        }
-
-        ore = magicOresToSpawn[_randomOre];
-
-        boardArray[_i, _j] = ore;
-
-        //OreDropper(ore);
-        throw new NotImplementedException();
-    }
-
-    private void OreDropper(GameObject ore)
-    {
-
-
-
-        //for (int i = 0; i < columnLength; i++)
-        //{
-        //    int _randomOre = Random.Range(0, magicOresToSpawn.Count);
-        //
-        //    if (boardArray[i, 7] = null)
-        //    {
-        //        boardArray[i, 7] = magicOresToSpawn[_randomOre];
-        //        boardArray[i, 7].SetActive(true);
-        //        boardArray[i, 7].transform.parent = transform;
-        //
-        //        magicOresToSpawn.Remove(boardArray[i, 7]);
-        //    }
-        //}
-        throw new NotImplementedException();
     }
 
     private void MagicOreRandomizer()
     {
         randomOre = Random.Range(0, 7);
         magicOre = magicOres[randomOre];
-        //Lägg till random ore i MagicOresToSpawn;
     }
 
-    private void NewOreSpawner()
+    void OnDrawGizmos()
     {
-        //Ta ore från MagicOresToSpawn till boardArray och lägg dom i dom tomma slotsen
-        throw new NotImplementedException();
-    }
-
-    private void EndTurn()
-    {
-        //Add collected mana to spell meter
-        NewTurn();
-        throw new NotImplementedException();
-    }
-
-    private void NewTurn()
-    {
-        //movesLeft reset
-        //switch player
-        throw new NotImplementedException();
+        for (int i = 0; i < columnLength; i++)
+        {
+            for (int j = 0; j < rowHeight; j++)
+            {
+                Handles.Label(boardArray[i, j].GetComponent<MagicOreScript>().transform.position, i + "," + j);
+            }
+        }
     }
 }

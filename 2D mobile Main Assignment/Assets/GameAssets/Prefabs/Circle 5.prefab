@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2455686634146736401}
   - component: {fileID: 8661073314442990589}
   - component: {fileID: -3517966027938398251}
+  - component: {fileID: -85735220177998317}
   m_Layer: 0
   m_Name: Circle 5
   m_TagString: MagicOre
@@ -92,7 +93,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4264615328614054852}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -116,6 +117,7 @@ MonoBehaviour:
   pickedUp: 0
   columnIndex: 0
   rowIndex: 0
+  oreType: 5
   boardPosition: {x: 0, y: 0}
 --- !u!50 &-3517966027938398251
 Rigidbody2D:
@@ -138,3 +140,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-85735220177998317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264615328614054852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4111a2f0e8e00b64982712eeb3a48042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

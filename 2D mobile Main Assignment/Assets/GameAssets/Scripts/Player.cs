@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private Vector2 mousePos;
 
     private bool mouseDown;
+    private bool hLock;
+    private bool vLock;
 
     public GameObject currentOre;
 
@@ -25,15 +27,20 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.B))
         {
-            board.BreakOre(currentOre);
+            if (currentOre != null)
+            {
+                board.BreakOre(currentOre);
+            }
         }
-        
     }
 
     private void PlayerInput()
     {
         if (!mouseDown)
         {
+            if (mousePos.x > 7f || mousePos.y > 7f) return;
+            if (mousePos.x < 0f || mousePos.y < 0f) return;
+
             currentOre = board.boardArray[(int)mousePos.x, (int)mousePos.y];
         }
 
@@ -43,18 +50,16 @@ public class Player : MonoBehaviour
             MagicOreScript _currentOreScript = currentOre.GetComponent<MagicOreScript>();
 
             currentOre.GetComponent<MagicOreScript>().pickedUp = true;
+
             currentOre.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
             Vector2 offset = (Vector2)_currentOreScript.transform.position - _currentOreScript.boardPosition;
-
-            //Debug.Log(_currentOreScript.columnIndex + " " + _currentOreScript.rowIndex);
-
 
             if (Mathf.Abs(offset.x) >= 1 || Mathf.Abs(offset.y) >= + 1)
             {
                 board.boardArray[(int)_currentOreScript.boardPosition.x, (int)_currentOreScript.boardPosition.y] = board.boardArray[(int)mousePos.x, (int)mousePos.y];
                 board.boardArray[(int)mousePos.x, (int)mousePos.y] = currentOre;
             }
-
         }
 
         if (Input.GetMouseButtonUp(0) && currentOre != null)

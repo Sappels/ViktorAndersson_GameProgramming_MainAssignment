@@ -4,50 +4,53 @@ using UnityEngine;
 
 public class MagicOreScript : MonoBehaviour
 {
-
-    List<GameObject> friends;
-    private int mana = 100;
-    
+    [SerializeField] List<GameObject> friends;
+    private GameObject bottomCollider;
+    private Player player;
+    private Board board;
     public bool pickedUp;
-    
     public int columnIndex, rowIndex;
     public int oreType;
-    public Vector2 boardPosition;
+
+    private Rigidbody2D rb2d;
+
 
     private void Start()
     {
-        boardPosition = transform.localPosition;
+        rb2d = GetComponent<Rigidbody2D>();
+        player = GameObject.Find("PlayerHandler").GetComponent<Player>();
+        board = GameObject.Find("BoardManager").GetComponent<Board>();
+        bottomCollider = GameObject.Find("BottomCollider");
     }
-
     private void Update()
     {
-        if (!pickedUp)
+        if (player.mouseDown)
         {
-            transform.localPosition = boardPosition;
+            GetComponent<Collider2D>().isTrigger = true;
+            rb2d.gravityScale = 0;
         }
         else
         {
-            Debug.Log(boardPosition);
+            GetComponent<Collider2D>().isTrigger = false;
+            rb2d.gravityScale = 0.5f;
         }
     }
 
-    public int GetMana()
-    {
-        return mana;
-    }
-
-
     private void OnMouseDown()
     {
-        GetComponent<Collider2D>().enabled = false;
-
         Vector2[] dirX = { Vector2.right, Vector2.left };
         CheckDir(dirX);
 
         Vector2[] dirY = { Vector2.up, Vector2.down };
         CheckDir(dirY);
+    }
 
-        GetComponent<Collider2D>().enabled = true;
+    private void OnMouseOver()
+    {
+        if (player.currentOre != gameObject)
+        {
+            player.currentOre = gameObject;
+        }
     }
 
     private void CheckDir(Vector2[] dir)
@@ -64,13 +67,17 @@ public class MagicOreScript : MonoBehaviour
             item.GetComponent<Collider2D>().enabled = true;
         }
 
-        if (friends.Count >= 2)
+        if (friends.Count >= 3)
         {
             Debug.Log("3 friends, we can clear them");
             foreach (GameObject item in friends)
             {
+                board.magicOresToSpawn.Add(item);
+                item.transform.parent = null;
                 item.SetActive(false);
             }
+            board.magicOresToSpawn.Add(gameObject);
+            gameObject.transform.parent = null;
             gameObject.SetActive(false);
         }
     }
@@ -80,11 +87,14 @@ public class MagicOreScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 1);
         if (hit.collider != null)
         {
+            if (hit.collider.gameObject == bottomCollider)
+                return;
+
             if (hit.collider.gameObject.GetComponent<MagicOreScript>().oreType == oreType)
             {
                 hit.collider.enabled = false;
                 startPos += (Vector3)direction;
-                if (friends.Count < 3)
+                if (friends.Count < 5)
                 {
                     friends.Add(hit.collider.gameObject);
                 }
@@ -92,5 +102,15 @@ public class MagicOreScript : MonoBehaviour
             }
         }
         return;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawRay(transform.position, Vector2.up);
+        Gizmos.DrawRay(transform.position, Vector2.down);
+        Gizmos.DrawRay(transform.position, Vector2.left);
+        Gizmos.DrawRay(transform.position, Vector2.right);
     }
 }

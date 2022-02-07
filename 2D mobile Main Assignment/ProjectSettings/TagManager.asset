@@ -7,6 +7,7 @@ TagManager:
   - MagicOre
   - PlayerHandler
   - BoardHandler
+  - BottomCollider
   layers:
   - Default
   - TransparentFX

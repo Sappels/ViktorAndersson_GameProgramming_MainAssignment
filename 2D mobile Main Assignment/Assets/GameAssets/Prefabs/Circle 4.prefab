@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.11532295, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 52c4fe9a1ec94a94a9b71de95ab356aa, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friends: []
-  pickedUp: 0
+  bottomCollider: {fileID: 7109336063901446755, guid: b32c4d5268d25ce44a1c75b2ac815be4, type: 3}
   columnIndex: 0
   rowIndex: 0
   oreType: 4
+  pickedUp: 0
 --- !u!50 &7471648312228085746
 Rigidbody2D:
   serializedVersion: 4

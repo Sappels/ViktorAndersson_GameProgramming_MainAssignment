@@ -98,10 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friends: []
-  pickedUp: 0
+  objectPoolParent: {fileID: 5987663253307966468, guid: 6c9ab756aec522d47afb07befa1bb2d0, type: 3}
+  bottomCollider: {fileID: 7109336063901446755, guid: b32c4d5268d25ce44a1c75b2ac815be4, type: 3}
   columnIndex: 0
   rowIndex: 0
   oreType: 5
+  pickedUp: 0
 --- !u!50 &-3517966027938398251
 Rigidbody2D:
   serializedVersion: 4

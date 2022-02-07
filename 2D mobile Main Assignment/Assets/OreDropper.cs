@@ -5,11 +5,13 @@ using UnityEngine;
 public class OreDropper : MonoBehaviour
 {
     private Board board;
+    private GameManager gameManager;
     [SerializeField] GameObject boardHandler;
 
     private void Start()
     {
         board = boardHandler.GetComponent<Board>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -21,7 +23,7 @@ public class OreDropper : MonoBehaviour
     {
 
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 1);
-        if (hit.collider == null)
+        if (hit.collider == null && !gameManager.isBoardFull)
         {
             int _randomOre = Random.Range(0, board.magicOresToSpawn.Count);
             GameObject newOre = board.magicOresToSpawn[_randomOre];

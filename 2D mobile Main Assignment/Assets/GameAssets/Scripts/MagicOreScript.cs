@@ -6,21 +6,25 @@ public class MagicOreScript : MonoBehaviour
 {
     [SerializeField] List<GameObject> friends;
     private GameObject bottomCollider;
+    private GameObject objectPoolParent;
     private Player player;
     private Board board;
-    public bool pickedUp;
+
     public int columnIndex, rowIndex;
     public int oreType;
 
-    private Rigidbody2D rb2d;
+    public bool pickedUp;
 
+
+    private Rigidbody2D rb2d;
 
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        player = GameObject.Find("PlayerHandler").GetComponent<Player>();
-        board = GameObject.Find("BoardManager").GetComponent<Board>();
-        bottomCollider = GameObject.Find("BottomCollider");
+        player = GameObject.FindGameObjectWithTag("PlayerHandler").GetComponent<Player>();
+        board = GameObject.FindGameObjectWithTag("BoardHandler").GetComponent<Board>();
+        bottomCollider = GameObject.FindGameObjectWithTag("BottomCollider");
+        objectPoolParent = GameObject.Find("ObjectPoolParent");
     }
     private void Update()
     {
@@ -57,12 +61,9 @@ public class MagicOreScript : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        if (player.currentOre != null && !player.mouseDown)
+        if (player.currentOre == gameObject && !player.mouseDown)
         {
-            if (player.currentOre != gameObject)
-            {
-                player.currentOre = gameObject;
-            }
+            player.currentOre = null;
         }
     }
 
@@ -86,11 +87,13 @@ public class MagicOreScript : MonoBehaviour
             foreach (GameObject item in friends)
             {
                 board.magicOresToSpawn.Add(item);
-                item.transform.parent = null;
+                item.transform.parent = objectPoolParent.transform;
+                board.oresOnBoard.Remove(item);
                 item.SetActive(false);
             }
             board.magicOresToSpawn.Add(gameObject);
-            gameObject.transform.parent = null;
+            gameObject.transform.parent = objectPoolParent.transform;
+            board.oresOnBoard.Remove(gameObject);
             gameObject.SetActive(false);
         }
     }

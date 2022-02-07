@@ -27,29 +27,42 @@ public class MagicOreScript : MonoBehaviour
         if (player.mouseDown)
         {
             GetComponent<Collider2D>().isTrigger = true;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
             rb2d.gravityScale = 0;
         }
         else
         {
             GetComponent<Collider2D>().isTrigger = false;
+            rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
             rb2d.gravityScale = 0.5f;
         }
+
     }
 
     private void OnMouseDown()
     {
         Vector2[] dirX = { Vector2.right, Vector2.left };
         CheckDir(dirX);
-
+        
         Vector2[] dirY = { Vector2.up, Vector2.down };
         CheckDir(dirY);
     }
 
     private void OnMouseOver()
     {
-        if (player.currentOre != gameObject)
+        if (player.currentOre == null)
         {
             player.currentOre = gameObject;
+        }
+    }
+    private void OnMouseExit()
+    {
+        if (player.currentOre != null && !player.mouseDown)
+        {
+            if (player.currentOre != gameObject)
+            {
+                player.currentOre = gameObject;
+            }
         }
     }
 

@@ -16,8 +16,6 @@ public class Board : MonoBehaviour
     public List<GameObject> magicOresToSpawn = new List<GameObject>();
 
     List<GameObject> oresOnBoard = new List<GameObject>();
-    public GameObject[,] boardArray;
-
 
     [SerializeField] GameObject objectPoolParent;
     private int randomOre;
@@ -29,28 +27,11 @@ public class Board : MonoBehaviour
         Application.targetFrameRate = 60;
         FillOrePool();
         CreateBoard();
-    }
-
-    void Update()
-    {
-        //UpdateBoard();
-    }
-
-    private void UpdateBoard()
-    {
-        for (int i = 0; i < columnLength; i++) 
-        {
-            for (int j = 0; j < rowHeight; j++)
-            {
-
-            }
-        }
+        HideOrePoolAtStart();
     }
 
     private void CreateBoard()
     {
-        boardArray = new GameObject[columnLength, rowHeight];
-
         for (int i = 0; i < columnLength; i++)
         {
             for (int j = 0; j < rowHeight; j++)

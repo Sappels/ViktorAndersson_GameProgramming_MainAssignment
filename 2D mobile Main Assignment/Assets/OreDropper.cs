@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OreDropper : MonoBehaviour
 {
-
     private Board board;
     [SerializeField] GameObject boardHandler;
 

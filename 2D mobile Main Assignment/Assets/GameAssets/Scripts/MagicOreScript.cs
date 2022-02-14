@@ -7,19 +7,20 @@ public class MagicOreScript : MonoBehaviour
     [SerializeField] List<GameObject> friends;
     private GameObject bottomCollider;
     private GameObject objectPoolParent;
+    private Rigidbody2D rb2d;
     private Player player;
     private Board board;
+    private GameManager gameManager;
+
+    private bool isFalling;
+
+    private LayerMask oreMask;
 
     private Vector2 boardPosition;
     public Vector2 currentPosition;
 
-    private LayerMask oreMask;
-
     public int oreType;
-
     public bool pickedUp;
-
-    private Rigidbody2D rb2d;
 
     private void Start()
     {
@@ -50,15 +51,11 @@ public class MagicOreScript : MonoBehaviour
             transform.localPosition = currentPosition;
         }
 
-    }
-
-    private void OnMouseDown()
-    {
-        Vector2[] dirX = { Vector2.right, Vector2.left };
-        CheckDir(dirX);
-        
-        Vector2[] dirY = { Vector2.up, Vector2.down };
-        CheckDir(dirY);
+        if (!player.mouseDown)
+        {
+            friends.Clear();
+            CheckForNeighbours();
+        }
     }
 
     private void OnMouseOver()
@@ -78,28 +75,35 @@ public class MagicOreScript : MonoBehaviour
         }
     }
 
-
     public void SwapPositions(GameObject otherOre)
     {
         MagicOreScript otherOreScript = otherOre.GetComponent<MagicOreScript>();
+        Vector2 _swapPos;
 
-        boardPosition = currentPosition;
+        _swapPos = currentPosition;
         currentPosition = otherOreScript.currentPosition;
-        otherOreScript.currentPosition = boardPosition;
+        otherOreScript.currentPosition = _swapPos;
+    }
+
+    private void CheckForNeighbours()
+    {
+        Vector2[] dirX = { Vector2.right, Vector2.left };
+        CheckDir(dirX);
+
+        Vector2[] dirY = { Vector2.up, Vector2.down };
+        CheckDir(dirY);
     }
 
     private void PausePhysicsWhenMouseDown()
     {
         if (player.mouseDown)
         {
-            //GetComponent<Collider2D>().isTrigger = true;
             GetComponent<Collider2D>().enabled = false;
             rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
             rb2d.gravityScale = 0;
         }
         else
         {
-            //GetComponent<Collider2D>().isTrigger = false;
             GetComponent<Collider2D>().enabled = true;
             rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
             rb2d.gravityScale = 0.5f;
@@ -108,6 +112,9 @@ public class MagicOreScript : MonoBehaviour
 
     private void CheckDir(Vector2[] dir)
     {
+        if (!GameManager.Instance.isBoardFull)
+            return;
+
         friends = new List<GameObject>();
 
         foreach (var direction in dir)
@@ -158,6 +165,8 @@ public class MagicOreScript : MonoBehaviour
         }
         return;
     }
+
+
 
     void OnDrawGizmosSelected()
     {

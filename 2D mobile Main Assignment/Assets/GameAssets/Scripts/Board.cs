@@ -8,20 +8,17 @@ using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
-
     [SerializeField] int numberOfChildren;
-
     [SerializeField] int columnLength;
     [SerializeField] int rowHeight;
     [SerializeField] float spacing;
-    [SerializeField] GameObject magicOre;
     [SerializeField] GameObject[] magicOres;
-    public List<GameObject> magicOresToSpawn = new List<GameObject>();
+    [SerializeField] GameObject objectPoolParent;
 
+    public List<GameObject> magicOresToSpawn = new List<GameObject>();
     public List<GameObject> oresOnBoard = new List<GameObject>();
 
-    [SerializeField] GameObject objectPoolParent;
-    private int randomOre;
+    public bool boardFull;
 
     void Start()
     {
@@ -48,7 +45,7 @@ public class Board : MonoBehaviour
                 oresOnBoard.Add(ore);
                 ore.transform.parent = transform;
                 ore.transform.localPosition = new Vector3(i, j, 0) * spacing;
-                ore.GetComponent<MagicOreScript>().currentPosition = new Vector3(i, j, 0) * spacing;
+                ore.GetComponent<MagicOreScript>().currentPosition = new Vector3(Mathf.RoundToInt(i), Mathf.RoundToInt(j), 0) * spacing;
                 ore.transform.rotation = Quaternion.identity;
                 magicOresToSpawn.RemoveAt(_randomOre);
                 ore.SetActive(true);
@@ -77,9 +74,4 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void MagicOreRandomizer()
-    {
-        randomOre = Random.Range(0, magicOresToSpawn.Count);
-        magicOre = magicOresToSpawn[randomOre];
-    }
 }

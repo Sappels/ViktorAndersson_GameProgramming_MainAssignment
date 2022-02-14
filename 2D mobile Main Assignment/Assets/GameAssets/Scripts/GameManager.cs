@@ -8,18 +8,21 @@ public class GameManager : MonoBehaviour
     public bool gameInMotion;
     public bool isBoardFull;
 
-    private Board board;
-    private Player player;
-    private OreDropper oreDropper;
-
     private GameObject boardObject;
+
+    private static GameManager instance;  //Singleton instance
+    public static GameManager Instance { get { return instance; } }
+
+
 
     void Start()
     {
-        board = GameObject.Find("BoardManager").GetComponent<Board>();
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
         boardObject = GameObject.Find("BoardManager");
-        player = GameObject.Find("PlayerHandler").GetComponent<Player>();
-        oreDropper = GameObject.Find("OreDropper").GetComponent<OreDropper>();
     }
 
     void Update()

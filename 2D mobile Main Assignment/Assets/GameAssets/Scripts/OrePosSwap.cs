@@ -17,7 +17,6 @@ public class OrePosSwap : MonoBehaviour
         {
             if (other.CompareTag("PosSwapper"))
             {
-                Debug.Log("I hit");
                 magicOreScript.SwapPositions(other.transform.parent.gameObject);
             }
         }

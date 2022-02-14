@@ -20,8 +20,6 @@ public class Board : MonoBehaviour
     [SerializeField] GameObject objectPoolParent;
     private int randomOre;
 
-    //I do not care about these bools for now they are just here so the if statements make some more sense
-
     void Start()
     {
         Application.targetFrameRate = 60;

@@ -22,13 +22,6 @@ public class Player : MonoBehaviour
 
     private void PlayerInput()
     {
-        //if (!mouseDown)
-        //{
-        //    if (mousePos.x > 7f || mousePos.y > 7f) return;
-        //    if (mousePos.x < 0f || mousePos.y < 0f) return;
-        //
-        //    currentOre = board.boardArray[(int)mousePos.x, (int)mousePos.y];
-        //}
 
         if (Input.GetMouseButton(0) && currentOre != null)
         {
@@ -39,13 +32,6 @@ public class Player : MonoBehaviour
         
             currentOre.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-            //Vector2 offset = (Vector2)_currentOreScript.transform.position - _currentOreScript.boardPosition;
-        
-            //if (Mathf.Abs(offset.x) >= 1 || Mathf.Abs(offset.y) >= + 1)
-            //{
-            //    board.boardArray[(int)_currentOreScript.boardPosition.x, (int)_currentOreScript.boardPosition.y] = board.boardArray[(int)mousePos.x, (int)mousePos.y];
-            //    board.boardArray[(int)mousePos.x, (int)mousePos.y] = currentOre;
-            //}
         }
 
         if (Input.GetMouseButtonUp(0) && currentOre != null)

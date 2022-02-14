@@ -40,7 +40,6 @@ public class MagicOreScript : MonoBehaviour
             rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
             rb2d.gravityScale = 0.5f;
         }
-
     }
 
     private void OnMouseDown()
@@ -59,6 +58,7 @@ public class MagicOreScript : MonoBehaviour
             player.currentOre = gameObject;
         }
     }
+
     private void OnMouseExit()
     {
         if (player.currentOre == gameObject && !player.mouseDown)

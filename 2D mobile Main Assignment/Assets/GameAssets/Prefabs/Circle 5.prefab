@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &798668068516864811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5967327603858026915}
+  - component: {fileID: 5107587175562728693}
+  - component: {fileID: 5324440031314698057}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: PosSwapper
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5967327603858026915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798668068516864811}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4264615328614054874}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5107587175562728693
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798668068516864811}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3606278
+--- !u!114 &5324440031314698057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798668068516864811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d8a09ee7d3aae4dac5f264087d702d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4264615328614054852
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +73,7 @@ GameObject:
   - component: {fileID: 8661073314442990589}
   - component: {fileID: -3517966027938398251}
   - component: {fileID: 7150013417250645709}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Circle 5
   m_TagString: MagicOre
   m_Icon: {fileID: 0}
@@ -30,7 +90,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.891, y: -1.147, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5967327603858026915}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,10 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friends: []
-  objectPoolParent: {fileID: 5987663253307966468, guid: 6c9ab756aec522d47afb07befa1bb2d0, type: 3}
-  bottomCollider: {fileID: 7109336063901446755, guid: b32c4d5268d25ce44a1c75b2ac815be4, type: 3}
-  columnIndex: 0
-  rowIndex: 0
+  currentPosition: {x: 0, y: 0}
   oreType: 5
   pickedUp: 0
 --- !u!50 &-3517966027938398251

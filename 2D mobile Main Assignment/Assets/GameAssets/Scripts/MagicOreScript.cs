@@ -10,11 +10,14 @@ public class MagicOreScript : MonoBehaviour
     private Player player;
     private Board board;
 
-    public int columnIndex, rowIndex;
+    private Vector2 boardPosition;
+    public Vector2 currentPosition;
+
+    private LayerMask oreMask;
+
     public int oreType;
 
     public bool pickedUp;
-
 
     private Rigidbody2D rb2d;
 
@@ -25,21 +28,28 @@ public class MagicOreScript : MonoBehaviour
         board = GameObject.FindGameObjectWithTag("BoardHandler").GetComponent<Board>();
         bottomCollider = GameObject.FindGameObjectWithTag("BottomCollider");
         objectPoolParent = GameObject.Find("ObjectPoolParent");
+
+        oreMask = LayerMask.GetMask("MagicOre");
     }
     private void Update()
     {
-        if (player.mouseDown)
+        PausePhysicsWhenMouseDown();
+
+        if (Input.GetMouseButtonDown(0) && player.currentOre != gameObject)
         {
-            GetComponent<Collider2D>().isTrigger = true;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
-            rb2d.gravityScale = 0;
+            currentPosition = transform.localPosition;
         }
-        else
+
+        if (Input.GetMouseButtonUp(0))
         {
-            GetComponent<Collider2D>().isTrigger = false;
-            rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-            rb2d.gravityScale = 0.5f;
+            transform.localPosition = currentPosition;
         }
+
+        if (player.mouseDown && !pickedUp)
+        {
+            transform.localPosition = currentPosition;
+        }
+
     }
 
     private void OnMouseDown()
@@ -56,6 +66,7 @@ public class MagicOreScript : MonoBehaviour
         if (player.currentOre == null)
         {
             player.currentOre = gameObject;
+            player.currentOre.GetComponent<MagicOreScript>().currentPosition = player.currentOre.transform.localPosition;
         }
     }
 
@@ -64,6 +75,34 @@ public class MagicOreScript : MonoBehaviour
         if (player.currentOre == gameObject && !player.mouseDown)
         {
             player.currentOre = null;
+        }
+    }
+
+
+    public void SwapPositions(GameObject otherOre)
+    {
+        MagicOreScript otherOreScript = otherOre.GetComponent<MagicOreScript>();
+
+        boardPosition = currentPosition;
+        currentPosition = otherOreScript.currentPosition;
+        otherOreScript.currentPosition = boardPosition;
+    }
+
+    private void PausePhysicsWhenMouseDown()
+    {
+        if (player.mouseDown)
+        {
+            //GetComponent<Collider2D>().isTrigger = true;
+            GetComponent<Collider2D>().enabled = false;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            rb2d.gravityScale = 0;
+        }
+        else
+        {
+            //GetComponent<Collider2D>().isTrigger = false;
+            GetComponent<Collider2D>().enabled = true;
+            rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+            rb2d.gravityScale = 0.5f;
         }
     }
 
@@ -100,7 +139,7 @@ public class MagicOreScript : MonoBehaviour
 
     private void CheckInDir(Vector3 startPos, Vector2 direction)
     {
-        RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 1);
+        RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 1, oreMask);
         if (hit.collider != null)
         {
             if (hit.collider.gameObject == bottomCollider)

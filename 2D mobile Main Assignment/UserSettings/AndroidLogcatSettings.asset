@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "0ee5bd20",
+    "m_SelectedDeviceId": "ce041824732490730c",
     "m_SelectedPackage": {
-        "deviceId": "0ee5bd20",
+        "deviceId": "ce041824732490730c",
         "name": "com.google.firebase.mobigamebig",
-        "processId": 9402,
+        "processId": 4060,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -54,6 +54,36 @@
             "deviceId": "0ee5bd20",
             "name": "com.google.firebase.mobigamebig",
             "processId": 9402,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 30582,
+            "exited": true
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 699,
+            "exited": true
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 2081,
+            "exited": true
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.sec.android.app.launcher",
+            "processId": 12270,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 4060,
             "exited": false
         }
     ],

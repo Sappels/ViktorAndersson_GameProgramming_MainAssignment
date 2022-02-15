@@ -12,8 +12,7 @@ public class MagicOreScript : MonoBehaviour
     private Player player;
     private Board board;
 
-    private bool isValidSpot;
-
+    [SerializeField] float rayCastLength;
     private LayerMask oreMask;
 
     public Vector2 boardPosition;
@@ -95,9 +94,9 @@ public class MagicOreScript : MonoBehaviour
         Vector2 _swapPos = currentPosition;
 
         //Distance constraints
-        if ((otherOreScript.currentPosition.x > boardPosition.x + 1.1f) || (otherOreScript.currentPosition.x < boardPosition.x - 1.1f))
+        if ((otherOreScript.currentPosition.x > boardPosition.x + rayCastLength) || (otherOreScript.currentPosition.x < boardPosition.x - rayCastLength))
             return;
-        if ((otherOreScript.currentPosition.y > boardPosition.y + 1.1f) || (otherOreScript.currentPosition.y < boardPosition.y - 1.1f))
+        if ((otherOreScript.currentPosition.y > boardPosition.y + rayCastLength) || (otherOreScript.currentPosition.y < boardPosition.y - rayCastLength))
             return;
 
         currentPosition = otherOreScript.currentPosition;
@@ -166,7 +165,7 @@ public class MagicOreScript : MonoBehaviour
 
     private void CheckInDir(Vector3 startPos, Vector2 direction)
     {
-        RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 1, oreMask);
+        RaycastHit2D hit = Physics2D.Raycast(startPos, direction, rayCastLength, oreMask);
         if (hit.collider != null)
         {
             if (hit.collider.gameObject == bottomCollider)
@@ -186,13 +185,21 @@ public class MagicOreScript : MonoBehaviour
         return;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.position.y < transform.position.y)
+        {
+            rb2d.velocity = new Vector2(0,0);
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawRay(transform.position, Vector2.up);
-        Gizmos.DrawRay(transform.position, Vector2.down);
-        Gizmos.DrawRay(transform.position, Vector2.left);
-        Gizmos.DrawRay(transform.position, Vector2.right);
+        Gizmos.DrawRay(transform.position, (Vector2.up * rayCastLength));
+        Gizmos.DrawRay(transform.position, (Vector2.down * rayCastLength));
+        Gizmos.DrawRay(transform.position, (Vector2.left * rayCastLength));
+        Gizmos.DrawRay(transform.position, (Vector2.right * rayCastLength));
     }
 }

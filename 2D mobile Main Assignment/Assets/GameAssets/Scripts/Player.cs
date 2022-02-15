@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
 
     private void PlayerInput()
     {
-
         if (Input.GetMouseButton(0) && currentOre != null)
         {
             mouseDown = true;

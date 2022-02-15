@@ -10,10 +10,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject boardObject;
 
-    private static GameManager instance;  //Singleton instance
+    private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
-
-
 
     void Start()
     {

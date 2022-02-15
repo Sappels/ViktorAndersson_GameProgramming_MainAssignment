@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MagicOreScript : MonoBehaviour
 {
@@ -10,13 +11,12 @@ public class MagicOreScript : MonoBehaviour
     private Rigidbody2D rb2d;
     private Player player;
     private Board board;
-    private GameManager gameManager;
 
-    private bool isFalling;
+    private bool isValidSpot;
 
     private LayerMask oreMask;
 
-    private Vector2 boardPosition;
+    public Vector2 boardPosition;
     public Vector2 currentPosition;
 
     public int oreType;
@@ -34,28 +34,34 @@ public class MagicOreScript : MonoBehaviour
     }
     private void Update()
     {
-        PausePhysicsWhenMouseDown();
+        FreezePhysicsWhenMouseDown();
 
         if (Input.GetMouseButtonDown(0) && player.currentOre != gameObject)
         {
             currentPosition = transform.localPosition;
+            boardPosition = currentPosition;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isValidSpot)
         {
-            transform.localPosition = currentPosition;
+            boardPosition = currentPosition;
+            isValidSpot = false;
         }
+        else if (Input.GetMouseButtonUp(0) && !isValidSpot)
+        {
+            transform.localPosition = boardPosition;
+        }
+
 
         if (player.mouseDown && !pickedUp)
         {
             transform.localPosition = currentPosition;
         }
 
-        if (!player.mouseDown)
-        {
-            friends.Clear();
+        //if (!player.mouseDown)
+        //{
             CheckForNeighbours();
-        }
+        //}
     }
 
     private void OnMouseOver()
@@ -78,11 +84,31 @@ public class MagicOreScript : MonoBehaviour
     public void SwapPositions(GameObject otherOre)
     {
         MagicOreScript otherOreScript = otherOre.GetComponent<MagicOreScript>();
-        Vector2 _swapPos;
 
-        _swapPos = currentPosition;
+        Vector2 _swapPos = currentPosition;
+
+        //Distance constraints
+        if ((otherOreScript.currentPosition.x > boardPosition.x + 1.1f) || (otherOreScript.currentPosition.x < boardPosition.x - 1.1f))
+            return;
+        if ((otherOreScript.currentPosition.y > boardPosition.y + 1.1f) || (otherOreScript.currentPosition.y < boardPosition.y - 1.1f))
+            return;
+
         currentPosition = otherOreScript.currentPosition;
         otherOreScript.currentPosition = _swapPos;
+
+
+        if (friends.Count >= 3)
+        {
+            Debug.Log("We got here");
+            isValidSpot = true;
+        }
+        else
+        {
+            isValidSpot = false;
+            //invalid spot, go back to boardpos on mouseup
+        }
+
+        friends.Clear();
     }
 
     private void CheckForNeighbours()
@@ -94,19 +120,17 @@ public class MagicOreScript : MonoBehaviour
         CheckDir(dirY);
     }
 
-    private void PausePhysicsWhenMouseDown()
+    private void FreezePhysicsWhenMouseDown()
     {
         if (player.mouseDown)
         {
             GetComponent<Collider2D>().enabled = false;
             rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
-            rb2d.gravityScale = 0;
         }
         else
         {
             GetComponent<Collider2D>().enabled = true;
             rb2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-            rb2d.gravityScale = 0.5f;
         }
     }
 
@@ -127,7 +151,8 @@ public class MagicOreScript : MonoBehaviour
             item.GetComponent<Collider2D>().enabled = true;
         }
 
-        if (friends.Count >= 3)
+        //break functionality
+        if (friends.Count >= 3 && !player.mouseDown)
         {
             Debug.Log("3 friends, we can clear them");
             foreach (GameObject item in friends)
@@ -156,7 +181,7 @@ public class MagicOreScript : MonoBehaviour
             {
                 hit.collider.enabled = false;
                 startPos += (Vector3)direction;
-                if (friends.Count < 5)
+                if (friends.Count < 6)
                 {
                     friends.Add(hit.collider.gameObject);
                 }
@@ -165,8 +190,6 @@ public class MagicOreScript : MonoBehaviour
         }
         return;
     }
-
-
 
     void OnDrawGizmosSelected()
     {

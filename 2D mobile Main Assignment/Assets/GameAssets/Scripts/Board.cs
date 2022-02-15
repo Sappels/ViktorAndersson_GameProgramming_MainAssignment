@@ -44,8 +44,9 @@ public class Board : MonoBehaviour
                 
                 oresOnBoard.Add(ore);
                 ore.transform.parent = transform;
-                ore.transform.localPosition = new Vector3(i, j, 0) * spacing;
+                ore.transform.localPosition = new Vector3(Mathf.RoundToInt(i), Mathf.RoundToInt(j), 0) * spacing;
                 ore.GetComponent<MagicOreScript>().currentPosition = new Vector3(Mathf.RoundToInt(i), Mathf.RoundToInt(j), 0) * spacing;
+                ore.GetComponent<MagicOreScript>().boardPosition = new Vector3(Mathf.RoundToInt(i), Mathf.RoundToInt(j), 0) * spacing;
                 ore.transform.rotation = Quaternion.identity;
                 magicOresToSpawn.RemoveAt(_randomOre);
                 ore.SetActive(true);

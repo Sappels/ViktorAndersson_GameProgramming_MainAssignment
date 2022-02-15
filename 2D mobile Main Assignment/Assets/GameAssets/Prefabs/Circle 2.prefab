@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friends: []
+  boardPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   oreType: 2
   pickedUp: 0
@@ -114,7 +115,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0.5
@@ -147,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7923015, y: 2.0212274}
+  m_Size: {x: 1.4871107, y: 2.0212274}
   m_EdgeRadius: 0
 --- !u!1 &8068153813049157868
 GameObject:

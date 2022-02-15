@@ -42,26 +42,33 @@ public class MagicOreScript : MonoBehaviour
             boardPosition = currentPosition;
         }
 
-        if (Input.GetMouseButtonUp(0) && isValidSpot)
+        if (Input.GetMouseButtonUp(0))
         {
+            transform.localPosition = currentPosition;
             boardPosition = currentPosition;
-            isValidSpot = false;
         }
-        else if (Input.GetMouseButtonUp(0) && !isValidSpot)
+
+        if (!player.mouseDown)
         {
-            transform.localPosition = boardPosition;
+            CheckForNeighbours();
         }
+    }
 
-
+    private void FixedUpdate()
+    {
         if (player.mouseDown && !pickedUp)
         {
             transform.localPosition = currentPosition;
         }
 
-        //if (!player.mouseDown)
-        //{
-            CheckForNeighbours();
-        //}
+        if (GameManager.Instance.allowGravity)
+        {
+            rb2d.gravityScale = 0.5f;
+        }
+        else
+        {
+            rb2d.gravityScale = 0f;
+        }
     }
 
     private void OnMouseOver()
@@ -96,18 +103,6 @@ public class MagicOreScript : MonoBehaviour
         currentPosition = otherOreScript.currentPosition;
         otherOreScript.currentPosition = _swapPos;
 
-
-        if (friends.Count >= 3)
-        {
-            Debug.Log("We got here");
-            isValidSpot = true;
-        }
-        else
-        {
-            isValidSpot = false;
-            //invalid spot, go back to boardpos on mouseup
-        }
-
         friends.Clear();
     }
 
@@ -136,7 +131,7 @@ public class MagicOreScript : MonoBehaviour
 
     private void CheckDir(Vector2[] dir)
     {
-        if (!GameManager.Instance.isBoardFull)
+        if (GameManager.Instance.allowGravity)
             return;
 
         friends = new List<GameObject>();

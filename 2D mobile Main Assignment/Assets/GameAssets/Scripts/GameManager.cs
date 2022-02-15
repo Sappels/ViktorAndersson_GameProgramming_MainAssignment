@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public bool gameInMotion;
     public bool isBoardFull;
+    public bool allowGravity;
 
     private GameObject boardObject;
 

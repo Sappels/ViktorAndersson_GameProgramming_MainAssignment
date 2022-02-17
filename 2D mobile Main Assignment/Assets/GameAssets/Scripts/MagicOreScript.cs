@@ -5,15 +5,15 @@ using DG.Tweening;
 
 public class MagicOreScript : MonoBehaviour
 {
-    [SerializeField] List<GameObject> friends;
     private GameObject bottomCollider;
     private GameObject objectPoolParent;
     private Rigidbody2D rb2d;
     private Player player;
     private Board board;
-
-    [SerializeField] float rayCastLength;
     private LayerMask oreMask;
+
+    [SerializeField] List<GameObject> friends;
+    [SerializeField] float rayCastLength;
 
     public Vector2 boardPosition;
     public Vector2 currentPosition;

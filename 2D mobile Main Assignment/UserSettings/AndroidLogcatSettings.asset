@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "ce041824732490730c",
         "name": "com.google.firebase.mobigamebig",
-        "processId": 4060,
+        "processId": 18334,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -84,6 +84,12 @@
             "deviceId": "ce041824732490730c",
             "name": "com.google.firebase.mobigamebig",
             "processId": 4060,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.google.firebase.mobigamebig",
+            "processId": 18334,
             "exited": false
         }
     ],

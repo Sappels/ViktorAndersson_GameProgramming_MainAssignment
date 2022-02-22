@@ -154,12 +154,9 @@ public class MagicOreScript : MonoBehaviour
                 board.magicOresToSpawn.Add(item);
                 item.transform.parent = objectPoolParent.transform;
                 board.oresOnBoard.Remove(item);
+                Score.Instance.AddScoreToSessionScore();
                 item.SetActive(false);
             }
-            board.magicOresToSpawn.Add(gameObject);
-            gameObject.transform.parent = objectPoolParent.transform;
-            board.oresOnBoard.Remove(gameObject);
-            gameObject.SetActive(false);
         }
     }
 
@@ -175,7 +172,7 @@ public class MagicOreScript : MonoBehaviour
             {
                 hit.collider.enabled = false;
                 startPos += (Vector3)direction;
-                if (friends.Count < 6)
+                if (friends.Count < 5)
                 {
                     friends.Add(hit.collider.gameObject);
                 }

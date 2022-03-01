@@ -9,6 +9,7 @@ TagManager:
   - BoardHandler
   - BottomCollider
   - PosSwapper
+  - Music
   layers:
   - Default
   - TransparentFX

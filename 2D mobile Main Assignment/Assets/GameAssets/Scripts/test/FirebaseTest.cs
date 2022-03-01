@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
@@ -29,8 +30,12 @@ public class FirebaseTest : MonoBehaviour
             auth = FirebaseAuth.DefaultInstance;
         });
 
-        signInButton.onClick.AddListener(() => { SignIn(email.text, password.text); });
-        registerButton.onClick.AddListener(() => { RegisterNewUser(email.text, password.text); });
+
+        if (SceneManager.GetActiveScene().name == "FireBaseDemo")
+        {
+            signInButton.onClick.AddListener(() => { SignIn(email.text, password.text); });
+            registerButton.onClick.AddListener(() => { RegisterNewUser(email.text, password.text); });
+        }
     }
 
     public void AnonymousSignIn()
@@ -39,10 +44,12 @@ public class FirebaseTest : MonoBehaviour
             if (task.Exception != null)
             {
                 Debug.LogWarning(task.Exception);
+                currentUserText.text = "Anonymous sign in failed: " + task.Exception.InnerExceptions[0].InnerException.Message;
             }
             else
             {
                 SignedIn(task.Result);
+                SceneManager.LoadScene(1);
             }
         });
     }
@@ -64,6 +71,7 @@ public class FirebaseTest : MonoBehaviour
                   newUser.DisplayName, newUser.UserId);
 
                 SignedIn(newUser);
+                SceneManager.LoadScene(1);
             }
         });
     }
@@ -75,10 +83,12 @@ public class FirebaseTest : MonoBehaviour
             if (task.Exception != null)
             {
                 Debug.LogWarning(task.Exception);
+                currentUserText.text = "Could not sign in: " + task.Exception.InnerExceptions[0].InnerException.Message;
             }
             else
             {
                 SignedIn(task.Result);
+                SceneManager.LoadScene(1);
             }
         });
     }
@@ -94,7 +104,7 @@ public class FirebaseTest : MonoBehaviour
         else if (newUser.Email != "")
             currentUserText.text = "Logged in as: " + newUser.Email;
         else
-            currentUserText.text = "Logged in as: Anonymous User " + newUser.UserId.Substring(0, 6);
+            currentUserText.text = "Logged in as: Anon" + newUser.UserId.Substring(0, 6);
     }
 
     private void SignOut()

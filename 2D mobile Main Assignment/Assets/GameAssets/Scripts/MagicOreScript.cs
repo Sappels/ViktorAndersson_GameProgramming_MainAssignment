@@ -146,7 +146,7 @@ public class MagicOreScript : MonoBehaviour
         }
 
         //break functionality
-        if (friends.Count >= 3 && !player.mouseDown)
+        if (friends.Count >= 3 && !player.mouseDown && GameManager.Instance.gameInMotion)
         {
             Debug.Log("3 friends, we can clear them");
             foreach (GameObject item in friends)

@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "ce041824732490730c",
     "m_SelectedPackage": {
         "deviceId": "ce041824732490730c",
-        "name": "com.google.firebase.mobigamebig",
-        "processId": 18334,
+        "name": "com.ViktorAndersson.MagicMatch",
+        "processId": 9952,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -90,6 +90,24 @@
             "deviceId": "ce041824732490730c",
             "name": "com.google.firebase.mobigamebig",
             "processId": 18334,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.ViktorAndersson.MagicMatch",
+            "processId": 25012,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.ViktorAndersson.MagicMatch",
+            "processId": 5550,
+            "exited": false
+        },
+        {
+            "deviceId": "ce041824732490730c",
+            "name": "com.ViktorAndersson.MagicMatch",
+            "processId": 9952,
             "exited": false
         }
     ],

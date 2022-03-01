@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private GameObject boardObject;
+
+    private float localTimer = 2f;
+    
     public bool gameInMotion;
     public bool isBoardFull;
     public bool allowGravity;
 
-    private GameObject boardObject;
+    public float gameSpeed;
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -26,7 +30,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        SetGameInMotion();
         CheckIfBoardFull();
+    }
+
+    private void SetGameInMotion()
+    {
+        if (localTimer > -0.1)
+            localTimer -= Time.deltaTime;
+
+        if (localTimer <= 0)
+        {
+            gameInMotion = true;
+        }
     }
 
     private void CheckIfBoardFull()

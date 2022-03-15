@@ -1,9 +1,18 @@
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+[Serializable]
+class PlayerSaveData
+{
+    public string name;
+    public int score;
+}
 
 public class SaveManager : MonoBehaviour
 {
@@ -18,14 +27,30 @@ public class SaveManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void Save(string data)
+    {
+        PlayerSaveData saveData = new PlayerSaveData();
+        saveData.score = int.Parse(data);
+
+        string jsonString = JsonUtility.ToJson(saveData);
+        SaveToFirebase(jsonString);
+    }
+
     public void SaveToFirebase(string data)
     {
         var db = FirebaseDatabase.DefaultInstance;
         var userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+
         //puts the json data in the "users/userId" part of the database.
+        Debug.Log("I got run");
         db.RootReference.Child("users").Child(userId).SetRawJsonValueAsync(data);
     }
-
+    
     public void LoadFromFirebase()
     {
         var db = FirebaseDatabase.DefaultInstance;

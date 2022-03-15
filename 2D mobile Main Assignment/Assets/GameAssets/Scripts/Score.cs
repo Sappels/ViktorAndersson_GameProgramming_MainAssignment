@@ -23,5 +23,6 @@ public class Score : MonoBehaviour
     {
         score += 10;
         scoreText.text = "Score: " + score;
+        SaveManager.Instance.Save(score.ToString());
     }
 }

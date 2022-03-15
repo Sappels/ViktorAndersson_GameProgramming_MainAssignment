@@ -2,13 +2,15 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 
 public class AccountManager : MonoBehaviour
 {
     FirebaseAuth auth;
+
+    [SerializeField] TMP_Text currentUserText;
 
     private static AccountManager instance;
     public static AccountManager Instance { get { return instance; } }
@@ -28,7 +30,11 @@ public class AccountManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+    }
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SignIn(string email, string password)
@@ -44,7 +50,7 @@ public class AccountManager : MonoBehaviour
                 FirebaseUser newUser = task.Result;
                 Debug.LogFormat("User signed in successfully: {0} ({1})",
                   newUser.DisplayName, newUser.UserId);
-                //currentUserText = newUser.Email;
+                //currentUserText.text = newUser.Email;
                 //LoadFromFirebase();
             }
         });
